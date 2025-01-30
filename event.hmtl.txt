@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Events</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #111;
+      padding: 10px 20px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .logo-img {
+      width: 30px; /* Adjust size of logo */
+      height: auto;
+      margin-right: 10px; /* Space between logo and text */
+    }
+
+
+    header .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    header nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    header nav ul li {
+      margin: 0 10px;
+    }
+
+    header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1em;
+    }
+
+    /* Logout Button */
+    #logoutButton {
+      padding: 10px 20px;
+      background-color: #e50914;
+      border: none;
+      color: #fff;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #logoutButton:hover {
+      background-color: #ff141e;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      background: url('https://fastly.4sqi.net/img/general/600x600/584515423_3nwAhdvOCxr6WQQFdgNjV5c_kTN7BnsijKXb9wiGijQ.jpg') no-repeat center center/cover;  
+      position: relative;
+      text-align: center;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    .hero-content p {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+
+    .events-section {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .events-section h2 {
+      margin-bottom: 20px;
+      font-size: 2em;
+    }
+
+    .events-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .event-card {
+      background-color: #111;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .event-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .event-card h3 {
+      margin: 10px 0;
+      font-size: 1.5em;
+    }
+
+    .event-card p {
+      font-size: 1em;
+      margin: 10px 0;
+    }
+
+    .event-card button {
+      padding: 10px 20px;
+      background-color: #e50914;
+      border: none;
+      color: #fff;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .event-card button:hover {
+      background-color: #ff141e;
+    }  
+
+      /* Bubble effect on hover */
+    .event-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .event-card:hover::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200px;
+      height: 200px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      animation: bubble 0.6s ease-out forwards;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes bubble {
+      0% {
+        transform: scale(0) translate(-50%, -50%);
+      }
+      50% {
+        transform: scale(1.2) translate(-50%, -50%);
+      }
+      100% {
+        transform: scale(1.5) translate(-50%, -50%);
+        opacity: 0;
+      }
+    }
+
+
+   
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #111;
+      margin-top: 20px;
+    }
+      /* Scrolling Banner Styles */
+    .scrolling-banner {
+      background-color: #e50914;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+      font-size: 1.5em;
+      white-space: nowrap;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .scrolling-banner span {
+      display: inline-block;
+      animation: marquee 10s linear infinite;
+    }
+
+    /* Marquee Animation */
+    @keyframes marquee {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+    /* Login Page Styles */
+    .login-container {
+      background-color: #111;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      margin: 0 auto;
+    }
+
+    .login-container h1 {
+      margin-bottom: 20px;
+    }
+
+    .login-container label {
+      display: block;
+      margin: 10px 0 5px;
+      text-align: left;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #333;
+      border-radius: 5px;
+      background-color: #222;
+      color: #fff;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #e50914;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .login-container button:hover {
+      background-color: #ff141e;
+    }
+
+    .error-message {
+      color: #ff141e;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .login-container p {
+      margin-top: 15px;
+    }
+
+    .login-container a {
+      color: #e50914;
+      text-decoration: none;
+    }
+
+    .login-container a:hover {
+      text-decoration: underline;
+    }
+
+    /* Event Details */
+    .event-details {
+      display: none;
+      background-color: #111;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .event-details h2 {
+      margin-bottom: 20px;
+    }
+
+    .event-details table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: collapse;
+       
+      background-size: cover;
+      background-position: center;
+    }
+
+    .event-details table th, .event-details table td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #333;
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for table cells */
+    }
+
+    .event-details button {
+      background-color: #e50914;
+      padding: 10px 20px;
+      border: none;
+      color: #fff;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .event-details button:hover {
+      background-color: #ff141e;
+    }
+
+    /* Contact Details */
+    .contact-details {
+      display: none;
+      background-color: #111;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .contact-details h2 {
+      margin-bottom: 20px;
+    }
+
+    .contact-details p {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+
+    .contact-details button {
+      background-color: #e50914;
+      padding: 10px 20px;
+      border: none;
+      color: #fff;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .contact-details button:hover {
+      background-color: #ff141e;
+    }
+  </style>
+</head>
+<body>
+<!-- Scrolling Banner -->
+  <div class="scrolling-banner">
+    <span>WELCOME TO ALL THE STUDENTS OF BHAVAN'S VIVKENANDA COLLEGE</span>
+  </div>
+
+  <!-- Login Page -->
+  <div id="loginPage">
+    <div class="login-container">
+      <h1>Login</h1>
+      <form id="loginForm">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username" required>
+        
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+        
+        <button type="submit">Login</button>
+        <p class="error-message" id="errorMessage"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Home Page (Will be shown after login) -->
+  <div id="homePage" style="display:none;">
+    <header>
+      <div class="logo">EVENTIFY</div>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#" onclick="showContactDetails()">Contact</a></li>
+        </ul>
+      </nav>
+      <!-- Logout Button -->
+      <button id="logoutButton" onclick="logout()">Logout</button>
+    </header>
+
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Welcome to College Events</h1>
+        <p>Stay updated with the latest happenings on campus</p>
+      </div>
+    </div>
+
+    <section class="events-section">
+      <h2>Upcoming Events</h2>
+      <div class="events-container">
+        <div class="event-card">
+         <img src="https://images.squarespace-cdn.com/content/61f3189f93ba763a3f796156/1643322522584-SYGO6HRNBH6FNR3BRUJQ/FuturePrint+TechFest+Logo.jpg?format=1500w&content-type=image%2Fjpeg">
+          <h3>Tech Fest</h3>
+          <p>Explore the latest in technology and innovation.</p>
+          <button onclick="showTechFestDetails()">View Details</button>
+        </div>
+        <div class="event-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVnx9QDPjF7oxobpVqsPt1wWAIqJAuGarLIA&s" alt="cut">
+          <h3>Cultural Night</h3>
+          <p>A night of music, dance, and art performances.</p>
+          <button onclick="showCulturalNightDetails()">View Details</button>
+        </div>
+        <div class="event-card">
+          <img src="https://img.freepik.com/premium-vector/sports-day-vector-illustration-sports-event-graphic-design-banner-poster-flyer-design_7888-976.jpg" alt="nan">
+          <h3>Sports Day</h3>
+          <p>Compete and showcase your athletic skills.</p>
+          <button onclick="showSportsDayDetails()">View Details</button>
+        </div>
+        <div class="event-card">
+          <img src="https://img.freepik.com/free-vector/science-banner-with-doodle-icons_1308-132989.jpg" alt="pic">
+          <h3>Science Exhibition</h3>
+          <p>Present your innovative projects and ideas.</p>
+          <button onclick="showScienceExhibitionDetails()">View Details</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2024 College Events. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Event Details (Tech Fest) -->
+  <div id="techFestDetails" class="event-details">
+    <h2>Tech Fest</h2>
+    <table>
+      <tr>
+        <th>Date</th>
+        <td>March 20, 2024</td>
+      </tr>
+      <tr>
+        <th>Location</th>
+        <td>Campus Auditorium</td>
+      </tr>
+      <tr>
+        <th>Time</th>
+        <td>10:00 AM - 4:00 PM</td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td>Explore the latest trends and innovations in technology with experts.</td>
+      </tr> 
+      <tr>
+        <th>Registration</th>
+        <td><a href="https://docs.google.com/forms/d/12o2QoLYWW7Y6SnkDzq65VQ8BxBQyGLCpOuEcsZEEVwM/edit" target="_blank" style="color: #e50914; text-decoration: none;">Register Now</a></td>
+      </tr>
+    </table>
+    <button onclick="goBackToEvents()">Back to Events</button>
+  </div>
+
+  <!-- Event Details (Cultural Night) -->
+  <div id="culturalNightDetails" class="event-details">
+    <h2>Cultural Night</h2>
+    <table>
+      <tr>
+        <th>Date</th>
+        <td>April 5, 2024</td>
+      </tr>
+      <tr>
+        <th>Location</th>
+        <td>College Auditorium</td>
+      </tr>
+      <tr>
+        <th>Time</th>
+        <td>6:00 PM - 9:00 PM</td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td>A spectacular night showcasing music, dance, and art performances.</td>
+      </tr>
+      <tr>
+        <th>Registration</th>
+        <td><a href="https://docs.google.com/forms/d/12o2QoLYWW7Y6SnkDzq65VQ8BxBQyGLCpOuEcsZEEVwM/edit" target="_blank" style="color: #e50914; text-decoration: none;">Register Now</a></td>
+      </tr>
+    </table>
+    <button onclick="goBackToEvents()">Back to Events</button>
+  </div>
+
+  <!-- Event Details (Sports Day) -->
+  <div id="sportsDayDetails" class="event-details">
+    <h2>Sports Day</h2>
+    <table>
+      <tr>
+        <th>Date</th>
+        <td>May 12, 2024</td>
+      </tr>
+      <tr>
+        <th>Location</th>
+        <td>Sports Grounds</td>
+      </tr>
+      <tr>
+        <th>Time</th>
+        <td>8:00 AM - 5:00 PM</td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td>Participate in a variety of sports activities and competitions.</td>
+      </tr>
+      <tr>
+        <th>Registration</th>
+        <td><a href="https://docs.google.com/forms/d/12o2QoLYWW7Y6SnkDzq65VQ8BxBQyGLCpOuEcsZEEVwM/edit" target="_blank" style="color: #e50914; text-decoration: none;">Register Now</a></td>
+      </tr>
+    </table>
+    <button onclick="goBackToEvents()">Back to Events</button>
+  </div>
+
+  <!-- Event Details (Science Exhibition) -->
+  <div id="scienceExhibitionDetails" class="event-details">
+    <h2>Science Exhibition</h2>
+    <table>
+      <tr>
+        <th>Date</th>
+        <td>June 15, 2024</td>
+      </tr>
+      <tr>
+        <th>Location</th>
+        <td>Science Hall</td>
+      </tr>
+      <tr>
+        <th>Time</th>
+        <td>9:00 AM - 3:00 PM</td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td>Showcase your innovative scientific projects and research.</td>
+      </tr>
+      <tr>
+        <th>Registration</th>
+        <td><a href="https://docs.google.com/forms/d/12o2QoLYWW7Y6SnkDzq65VQ8BxBQyGLCpOuEcsZEEVwM/edit" target="_blank" style="color: #e50914; text-decoration: none;">Register Now</a></td>
+      </tr>
+    </table>
+    <button onclick="goBackToEvents()">Back to Events</button>
+  </div>
+
+  <!-- Contact Details -->
+  <div id="contactDetails" class="contact-details">
+    <h2>Contact Information</h2>
+    <p><strong>Mentor:</strong> Saumesh Routray</p>
+    <p><strong>Phone:</strong> +91 9808589499</p>
+    <p><strong>Email:</strong> saumeshroy123@gmail.com</p>
+    <button onclick="goBackToEvents()">Back to Events</button>
+  </div>
+
+  <script>
+    // Login Logic
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorMessage = document.getElementById("errorMessage");
+
+      // Custom credentials
+      const validUsername = "bhuvan";
+      const validPassword = "koushik";
+
+      if (username === validUsername && password === validPassword) {
+        // Show home page and hide login page
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("homePage").style.display = "block";
+      } else {
+        errorMessage.style.display = "block";
+        errorMessage.textContent = "Invalid username or password. Please try again.";
+      }
+    });
+
+    // Event Detail Functions
+    function showTechFestDetails() {
+      document.getElementById("homePage").style.display = "none";
+      document.getElementById("techFestDetails").style.display = "block";
+    }
+
+    function showCulturalNightDetails() {
+      document.getElementById("homePage").style.display = "none";
+      document.getElementById("culturalNightDetails").style.display = "block";
+    }
+
+    function showSportsDayDetails() {
+      document.getElementById("homePage").style.display = "none";
+      document.getElementById("sportsDayDetails").style.display = "block";
+    }
+
+    function showScienceExhibitionDetails() {
+      document.getElementById("homePage").style.display = "none";
+      document.getElementById("scienceExhibitionDetails").style.display = "block";
+    }
+
+    // Function to show Contact Details
+    function showContactDetails() {
+      document.getElementById("homePage").style.display = "none";
+      document.getElementById("contactDetails").style.display = "block";
+    }
+
+    // Function to go back to the events page
+    function goBackToEvents() {
+      document.getElementById("techFestDetails").style.display = "none";
+      document.getElementById("culturalNightDetails").style.display = "none";
+      document.getElementById("sportsDayDetails").style.display = "none";
+      document.getElementById("scienceExhibitionDetails").style.display = "none";
+      document.getElementById("contactDetails").style.display = "none";
+      document.getElementById("homePage").style.display = "block";
+    }
+
+    // Logout Function
+    function logout() {
+      const confirmLogout = confirm("Do you want to exit the page?");
+      if (confirmLogout) {
+        alert("You have successfully logged out.");
+        loginPage.style.display = "block";
+        homePage.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
